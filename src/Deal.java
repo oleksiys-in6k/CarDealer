@@ -3,7 +3,7 @@ import java.util.Calendar;
 public class Deal {
 
 
-    private final Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
     private final Customer buyer;
 
@@ -11,10 +11,12 @@ public class Deal {
 
     private final Car car;
 
-    public Deal(Customer buyer, Customer seller, Car car) {
+    public Deal(Customer buyer, Customer seller, Car car, Calendar calendar) {
         this.buyer = buyer;
         this.seller = seller;
         this.car = car;
+        this.calendar.setTime(calendar.getTime());
+        //this.calendar = calendar;
     }
 
     public Car getCar() {
@@ -32,4 +34,6 @@ public class Deal {
     public Calendar getCalendar() {
         return calendar;
     }
+
+
 }
