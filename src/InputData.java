@@ -2,11 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputData {
-    private List <Car> cars = new ArrayList<>();
-    private List <Customer> buyers = new ArrayList<>();
-    private List <Customer> sellers = new ArrayList<>();
 
     public List<Car> getListOfCar() {
+        List <Car> cars = new ArrayList<>();
+
         cars.add(new Car("BMW","x1",10000));
         cars.add(new Car("BMW","x3",20000));
         cars.add(new Car("BMW","x5",30000));
@@ -21,6 +20,8 @@ public class InputData {
     }
 
     public List<Customer> getListOfSeller() {
+        List <Customer> sellers = new ArrayList<>();
+
         sellers.add(new Customer("Alex"));
         sellers.add(new Customer("Bob"));
         sellers.add(new Customer("Conrad"));
@@ -28,6 +29,8 @@ public class InputData {
     }
 
     public List<Customer> getListOfBuyer() {
+        List <Customer> buyers = new ArrayList<>();
+
         buyers.add( new Customer("Stepan"));
         buyers.add(new Customer("Petro"));
         buyers.add(new Customer("Ivan"));

@@ -2,9 +2,6 @@ import java.util.*;
 
 public class Program {
 
-    private List <Car> cars;
-    private List <Customer> buyers;
-    private List <Customer> sellers;
     private List <Deal> deals = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -13,97 +10,17 @@ public class Program {
 
     public void addActions() {
         InputData inputData = new InputData();
-        cars =  inputData.getListOfCar();
-        sellers = inputData.getListOfSeller();
-        buyers = inputData.getListOfBuyer();
+        List<Car> cars = inputData.getListOfCar();
+        List<Customer> sellers = inputData.getListOfSeller();
+        List<Customer> buyers = inputData.getListOfBuyer();
 
-        creatingDeals();
+        deals = CreatingListDeals.getNewDeals(buyers, sellers, cars);
+
         System.out.println("===================");
-        output();
+        output(sellers);
     }
 
-    private void creatingDeals() {
-        boolean flag;
-        do {
-            System.out.println("List of buyer");
-            Customer buyer = ChooseCustomerFromList(buyers);
-            System.out.println("List of seller");
-            Customer seller = ChooseCustomerFromList(sellers);
-            System.out.println("List of car");
-            Car car = ChooseCarFromList(cars);
-
-            Deal deal = new Deal(buyer, seller, car);
-            deals.add(deal);
-            flag = continueInputDeals();
-        } while (flag);
-    }
-
-    private boolean continueInputDeals() {
-        System.out.println("Create new deal? ");
-        System.out.println("1 - yes, 2 - no");
-        String index = keyboard("");
-
-        switch (index) {
-            case "1" :
-                return true;
-            case "2" :
-                return false;
-            default :
-                System.out.println("Wrong input, try again");
-                continueInputDeals();
-                break;
-        }
-        return false;
-    }
-
-    private Car ChooseCarFromList(List<Car> carsList) {
-        if (isEmptyList(carsList)) return  null;
-        showAllCars(carsList);
-        String reply = keyboard("Choose car");
-        Integer index = Integer.valueOf(reply);
-        if (index <= carsList.size()) {
-            return carsList.get(index - 1);
-        } else {
-            System.out.println("You've selected incorrect product index. Try again.");
-            return ChooseCarFromList(carsList);
-        }
-    }
-
-    private void showAllCars(List<Car> carsList) {
-        for (int currentCar = 0; currentCar < carsList.size(); currentCar++) {
-            System.out.println( "\t" + (currentCar + 1) + ") " + carsList.get(currentCar).getBrand() + "\t" +
-                    carsList.get(currentCar).getModel() + "\t" + carsList.get(currentCar).getPrice());
-        }
-    }
-
-    private Customer ChooseCustomerFromList (List<Customer> customersList) {
-        if (isEmptyList(customersList)) return null;
-        showAllCustomer(customersList);
-        String reply = keyboard("Choose party");
-        Integer index = Integer.valueOf(reply);
-        if (index <= customersList.size()) {
-            return customersList.get(index - 1);
-        } else {
-            System.out.println("You've selected incorrect product index. Try again.");
-            return ChooseCustomerFromList(customersList);
-        }
-    }
-
-    private void showAllCustomer(List<Customer> customersList) {
-        for (int currentCustomer = 0; currentCustomer < customersList.size(); currentCustomer++) {
-            System.out.println("\t" + (currentCustomer + 1) + ") " + customersList.get(currentCustomer).getName());
-        }
-    }
-
-    private boolean isEmptyList(List list) {
-        if (list.isEmpty()) {
-            System.out.println("No products to select. Input is required.");
-            return true;
-        }
-        return false;
-    }
-
-    private void output() {
+    private void output(List <Customer> sellers) {
         System.out.println("Enter first date");
         Calendar dateBeginningOfPeriod = getTheCalendar();
 
