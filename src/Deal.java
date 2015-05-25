@@ -11,14 +11,14 @@ public class Deal {
 
     private final Car car;
 
-    public Car getCar() {
-        return car;
-    }
-
     public Deal(Customer buyer, Customer seller, Car car) {
         this.buyer = buyer;
         this.seller = seller;
         this.car = car;
+    }
+
+    public Car getCar() {
+        return car;
     }
 
     public Customer getBuyer() {

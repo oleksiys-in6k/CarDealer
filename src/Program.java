@@ -2,19 +2,21 @@ import java.util.*;
 
 public class Program {
 
-    List <Car> cars = new ArrayList<>();
-    List <Customer> buyers = new ArrayList<>();
-    List <Customer> sellers = new ArrayList<>();
-    List <Deal> deals = new ArrayList<>();
-
+    private List <Car> cars;
+    private List <Customer> buyers;
+    private List <Customer> sellers;
+    private List <Deal> deals = new ArrayList<>();
 
     public static void main(String[] args) {
         new Program().addActions();
-
     }
 
-    private void addActions() {
-        input();
+    public void addActions() {
+        InputData inputData = new InputData();
+        cars =  inputData.getListOfCar();
+        sellers = inputData.getListOfSeller();
+        buyers = inputData.getListOfBuyer();
+
         creatingDeals();
         System.out.println("===================");
         output();
@@ -56,9 +58,7 @@ public class Program {
 
     private Car ChooseCarFromList(List<Car> carsList) {
         if (isEmptyList(carsList)) return  null;
-        for (int currentCar = 0; currentCar < carsList.size(); currentCar++) {
-            System.out.println( "\t" + (currentCar + 1) + ") " + carsList.get(currentCar).getBrand() + "\t" + carsList.get(currentCar).getModel() + "\t" + carsList.get(currentCar).getPrice());
-        }
+        showAllCars(carsList);
         String reply = keyboard("Choose car");
         Integer index = Integer.valueOf(reply);
         if (index <= carsList.size()) {
@@ -69,11 +69,16 @@ public class Program {
         }
     }
 
+    private void showAllCars(List<Car> carsList) {
+        for (int currentCar = 0; currentCar < carsList.size(); currentCar++) {
+            System.out.println( "\t" + (currentCar + 1) + ") " + carsList.get(currentCar).getBrand() + "\t" +
+                    carsList.get(currentCar).getModel() + "\t" + carsList.get(currentCar).getPrice());
+        }
+    }
+
     private Customer ChooseCustomerFromList (List<Customer> customersList) {
         if (isEmptyList(customersList)) return null;
-        for (int currentCustomer = 0; currentCustomer < customersList.size(); currentCustomer++) {
-            System.out.println("\t" + (currentCustomer + 1) + ") " + customersList.get(currentCustomer).getName());
-        }
+        showAllCustomer(customersList);
         String reply = keyboard("Choose party");
         Integer index = Integer.valueOf(reply);
         if (index <= customersList.size()) {
@@ -82,7 +87,12 @@ public class Program {
             System.out.println("You've selected incorrect product index. Try again.");
             return ChooseCustomerFromList(customersList);
         }
+    }
 
+    private void showAllCustomer(List<Customer> customersList) {
+        for (int currentCustomer = 0; currentCustomer < customersList.size(); currentCustomer++) {
+            System.out.println("\t" + (currentCustomer + 1) + ") " + customersList.get(currentCustomer).getName());
+        }
     }
 
     private boolean isEmptyList(List list) {
@@ -106,7 +116,6 @@ public class Program {
     }
 
     private void printSalesOfPeriod(Customer customer, Calendar date1, Calendar date2) {
-//        String bestSeller;
         int countOfDeals = 0;
         System.out.println("Seller " + customer.getName());
         for (Deal deal : deals) {
@@ -118,7 +127,7 @@ public class Program {
                 countOfDeals++;
             }
         }
-        System.out.println("count of deals = "+ countOfDeals+ "\n");
+        System.out.println("count of deals = " + countOfDeals + "\n");
     }
 
     private Calendar getTheCalendar() {
@@ -126,30 +135,8 @@ public class Program {
         int month = Integer.valueOf(keyboard("month"));
         int day = Integer.valueOf(keyboard("day"));
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year,month,day);
+        calendar.set(year, month, day);
         return calendar;
-    }
-
-    private void input() {
-        cars.add(new Car("BMW","x1",10000));
-        cars.add(new Car("BMW","x3",20000));
-        cars.add(new Car("BMW","x5",30000));
-        cars.add(new Car("AUDI","A1",100));
-        cars.add(new Car("AUDI","A2",200));
-        cars.add(new Car("AUDI","A3",300));
-        cars.add(new Car("AUDI","A4",400));
-        cars.add(new Car("AUDI","A5",500));
-        cars.add(new Car("AUDI","A6",600));
-        cars.add(new Car("AUDI","A7",700));
-
-        buyers.add( new Customer("Stepan"));
-        buyers.add(new Customer("Petro"));
-        buyers.add(new Customer("Ivan"));
-        buyers.add(new Customer("Inokentiy"));
-
-        sellers.add(new Customer("Alex"));
-        sellers.add(new Customer("Bob"));
-        sellers.add(new Customer("Conrad"));
     }
 
     private String keyboard(String message) {
@@ -157,5 +144,4 @@ public class Program {
         Scanner scan = new Scanner(System.in);
         return scan.next();
     }
-
 }
