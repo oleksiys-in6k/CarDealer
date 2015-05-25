@@ -1,13 +1,13 @@
-import java.awt.*;
-import java.util.*;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Scanner;
 
 public class Program {
 
-    private List <Deal> deals = new ArrayList<>();
-    private List<Customer> sellers;
-    private List<Customer> buyers;
-    private List<Car> cars;
+    List<Deal> deals;
+    List<Car> cars;
+    List<Customer> sellers;
+    List<Customer> buyers;
 
 
     public static void main(String[] args) {
@@ -23,9 +23,10 @@ public class Program {
 
         System.out.println("===================");
 
-        SearchingForTheBestSeller searchingForTheBestSeller = new SearchingForTheBestSeller(sellers,deals);
+        SearchingForTheBestSeller searchingForTheBestSeller = new SearchingForTheBestSeller(sellers, deals);
         Customer seller = searchingForTheBestSeller.getBestSellerFromListSellers(sellers);
         System.out.println("Best seller ever is " + seller.getName());
+//        System.out.println(getBestSellerFromListSellers(sellers).getName());
 
     }
 }

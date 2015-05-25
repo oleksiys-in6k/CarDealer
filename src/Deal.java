@@ -16,7 +16,6 @@ public class Deal {
         this.seller = seller;
         this.car = car;
         this.calendar.setTime(calendar.getTime());
-        //this.calendar = calendar;
     }
 
     public Car getCar() {
