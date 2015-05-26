@@ -2,17 +2,13 @@ import java.util.Calendar;
 
 public class Deal {
 
-
     private Calendar calendar = Calendar.getInstance();
 
-    private final Customer buyer;
-
-    private final Customer seller;
+    private final Seller seller;
 
     private final Car car;
 
-    public Deal(Customer buyer, Customer seller, Car car, Calendar calendar) {
-        this.buyer = buyer;
+    public Deal(Seller seller, Car car, Calendar calendar) {
         this.seller = seller;
         this.car = car;
         this.calendar.setTime(calendar.getTime());
@@ -22,11 +18,7 @@ public class Deal {
         return car;
     }
 
-    public Customer getBuyer() {
-        return buyer;
-    }
-
-    public Customer getSeller() {
+    public Seller getSeller() {
         return seller;
     }
 
@@ -34,5 +26,8 @@ public class Deal {
         return calendar;
     }
 
+    public boolean wasSoldBy(Seller seller) {
+        return this.seller.equals(seller);
+    }
 
 }

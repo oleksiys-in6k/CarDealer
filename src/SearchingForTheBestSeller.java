@@ -1,72 +1,43 @@
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class SearchingForTheBestSeller {
 
     private List <Deal> deals = new ArrayList<>();
-    private List<Customer> sellers;
+    private List <Seller> sellers = new ArrayList<>();
+    private Period period;
 
-    public SearchingForTheBestSeller(List<Customer> sellers, List<Deal> deals) {
+    public SearchingForTheBestSeller(List<Seller> sellers, List<Deal> deals, Period period) {
         this.sellers = sellers;
         this.deals = deals;
+        this.period = period;
     }
 
-
-    public Customer getBestSellerFromListSellers(List<Customer> sellers) {
-        Customer bestSellerEver = null;
+    public Seller getBestSellerFromListSellers(List<Seller> sellers) {
+        Seller bestSellerEver = null;
         int maxCountOfSales = 0;
-        int countOfSalesForCurrentSaller;
-        System.out.println("Enter first date");
-        Calendar dateBeginningOfPeriod = getTheCalendar();
+        int countOfSalesForCurrentSeller;
 
-        System.out.println("Enter second date");
-        Calendar dateEndingOfPeriod = getTheCalendar();
-
-        for (Customer customer : sellers) {
-            countOfSalesForCurrentSaller = getCountOfDealsInCurrentSellerInPeriod(customer, dateBeginningOfPeriod,dateEndingOfPeriod);
-            if ( countOfSalesForCurrentSaller > maxCountOfSales ) {
-                bestSellerEver = customer;
-                maxCountOfSales = countOfSalesForCurrentSaller;
+        for (Seller seller : sellers) {
+            countOfSalesForCurrentSeller = getCountOfDealsInCurrentSellerInPeriod(seller, period);
+            if ( countOfSalesForCurrentSeller > maxCountOfSales ) {
+                bestSellerEver = seller;
+                maxCountOfSales = countOfSalesForCurrentSeller;
             }
         }
+
         return bestSellerEver;
     }
 
-    private int getCountOfDealsInCurrentSellerInPeriod(Customer customer, Calendar dateBeginningOfPeriod, Calendar dateEndingOfPeriod) {
+    private int getCountOfDealsInCurrentSellerInPeriod(Seller seller, Period period) {
         int countOfDeals = 0;
-        for (int i = 0; i < deals.size() - 1; i++) {
-            if (betweenInputedDays(dateBeginningOfPeriod, dateEndingOfPeriod, deals.get(i)))
-                if (isCurrentSeller(customer, deals.get(i))) {
-                    countOfDeals++;
-                }
+        for (Deal deal : deals) {
+            Date saleDate = deal.getCalendar().getTime();
+            if (period.includes(saleDate) && deal.wasSoldBy(seller)) {
+                countOfDeals++;
+            }
         }
+
         return countOfDeals;
     }
-
-    private boolean isCurrentSeller(Customer customer, Deal deal) {
-        return deal.getSeller().getName().equals(customer.getName());
-    }
-
-    private boolean betweenInputedDays(Calendar date1, Calendar date2, Deal deal) {
-        return date1.before(deal.getCalendar()) && date2.after(deal.getCalendar());
-    }
-
-    private Calendar getTheCalendar() {
-        int year = Integer.valueOf(keyboard("year"));
-        int month = Integer.valueOf(keyboard("month"));
-        int day = Integer.valueOf(keyboard("day"));
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
-        return calendar;
-    }
-
-    private String keyboard(String message) {
-        System.out.print(message + " ");
-        Scanner scan = new Scanner(System.in);
-        return scan.next();
-    }
-
 
 }

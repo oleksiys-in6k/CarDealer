@@ -1,32 +1,30 @@
-import java.util.Calendar;
 import java.util.List;
-import java.util.Scanner;
 
 public class Program {
 
     List<Deal> deals;
     List<Car> cars;
-    List<Customer> sellers;
-    List<Customer> buyers;
-
+    List<Seller> sellers;
 
     public static void main(String[] args) {
-        new Program().addActions();
+
+        new Program().initialization();
+        new Program().searchingBestSeller();
     }
 
-    public void addActions() {
+    private void searchingBestSeller() {
+        Period period = new Period();
+
+        SearchingForTheBestSeller searchingForTheBestSeller = new SearchingForTheBestSeller(sellers, deals, period);
+        Seller seller = searchingForTheBestSeller.getBestSellerFromListSellers(sellers);
+        System.out.println("Best seller ever is " + seller.getName());
+
+    }
+
+    public void initialization() {
         InputData inputData = new InputData();
         cars = inputData.getListOfCar();
         sellers = inputData.getListOfSeller();
-        buyers = inputData.getListOfBuyer();
         deals = inputData.getDeals();
-
-        System.out.println("===================");
-
-        SearchingForTheBestSeller searchingForTheBestSeller = new SearchingForTheBestSeller(sellers, deals);
-        Customer seller = searchingForTheBestSeller.getBestSellerFromListSellers(sellers);
-        System.out.println("Best seller ever is " + seller.getName());
-//        System.out.println(getBestSellerFromListSellers(sellers).getName());
-
     }
 }
