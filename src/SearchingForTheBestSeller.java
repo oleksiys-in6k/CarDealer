@@ -2,8 +2,8 @@ import java.util.*;
 
 public class SearchingForTheBestSeller {
 
-    private List <Deal> deals = new ArrayList<>();
-    private List <Seller> sellers = new ArrayList<>();
+    private List <Deal> deals = new ArrayList<Deal>();
+    private List <Seller> sellers = new ArrayList<Seller>();
     private Period period;
 
     public SearchingForTheBestSeller(List<Seller> sellers, List<Deal> deals, Period period) {
@@ -39,5 +39,4 @@ public class SearchingForTheBestSeller {
 
         return countOfDeals;
     }
-
 }

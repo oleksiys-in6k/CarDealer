@@ -4,9 +4,9 @@ public class Deal {
 
     private Calendar calendar = Calendar.getInstance();
 
-    private final Seller seller;
+    private Seller seller;
 
-    private final Car car;
+    private Car car;
 
     public Deal(Seller seller, Car car, Calendar calendar) {
         this.seller = seller;
